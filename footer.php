@@ -15,6 +15,18 @@
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="container">
+			<row class="row">
+				<div class="col-md-4">
+					<?php dynamic_sidebar( 'footer-1' ); ?>
+				</div>
+				<div class="col-md-4">
+					<?php dynamic_sidebar( 'footer-2' ); ?>
+				</div>
+				<div class="col-md-4">
+					<?php dynamic_sidebar( 'footer-3' ); ?>
+				</div>
+
+			</row> <!-- .row -->
 			<div class="site-info">
 				&copy; <?php bloginfo( 'name' );
 						echo ' - ';
