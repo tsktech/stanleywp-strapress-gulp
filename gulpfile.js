@@ -36,29 +36,34 @@ var browserSyncWatchFiles = ["./*.min.css", "./js/**/*.min.js", "./**/*.php"];
 // see: https://www.browsersync.io/docs/options/
 var browserSyncOptions = {
   watchTask: true,
-  proxy: "http://localhost:8888/"
+  proxy: "http://localhost:8888/wordpress/",
+  browser: ['google chrome']
 };
+
+var zipSRC = [
+  "*",
+  "./css/*",
+  "./fonts/*",
+  "./images/**/*",
+  "./inc/**/*",
+  "./js/**/*",
+  "./languages/*",
+  "./sass/**/*",
+  "./template-parts/*",
+  "./templates/*",
+  "!gulpfile.js",
+  "!.gitignore",
+  "!.j*.*",
+  "!pack*.*",
+  "!node_modules",
+  "!originalFiles",
+  "!.phpintel"
+];
 
 // Zip files up
 gulp.task("zip", function() {
   return gulp
-    .src(
-      [
-        "*",
-        "./css/*",
-       " ./fonts/*",
-        "./images/**/*",
-        "./inc/**/*",
-        "./js/**/*",
-        "./languages/*",
-        "./sass/**/*",
-        "./template-parts/*",
-        "./templates/*",
-        "!bower_components",
-        "!node_modules"
-      ],
-      { base: "." }
-    )
+    .src(zipSRC,{ base: "." })
     .pipe(zip("StanleyWP.zip"))
     .pipe(gulp.dest("./outputZip/"));
 });
@@ -119,7 +124,7 @@ gulp.task("sass", function() {
 gulp.task("critical", function(cb) {
   critical.generate({
     base: "./",
-    src: "http://localhost:8888/",
+    src: "http://localhost:8888/wordpress/",
     dest: "css/home.min.css",
     ignore: ["@font-face"],
     dimensions: [
