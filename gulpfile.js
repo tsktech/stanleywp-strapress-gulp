@@ -1,18 +1,18 @@
 // Load all the modules from package.json
-var gulp = require("gulp"),
-  plumber = require("gulp-plumber"),
-  autoprefixer = require("gulp-autoprefixer"),
-  watch = require("gulp-watch"),
-  jshint = require("gulp-jshint"),
-  stylish = require("jshint-stylish"),
-  uglify = require("gulp-uglify"),
-  rename = require("gulp-rename"),
-  notify = require("gulp-notify"),
-  include = require("gulp-include"),
-  sass = require("gulp-sass"),
+var gulp      = require("gulp"),
+  plumber     = require("gulp-plumber"),
+  autoprefixer= require("gulp-autoprefixer"),
+  watch       = require("gulp-watch"),
+  jshint      = require("gulp-jshint"),
+  stylish     = require("jshint-stylish"),
+  uglify      = require("gulp-uglify"),
+  rename      = require("gulp-rename"),
+  notify      = require("gulp-notify"),
+  include     = require("gulp-include"),
+  sass        = require("gulp-sass"),
   browserSync = require("browser-sync").create(),
-  critical = require("critical"),
-  zip = require("gulp-zip");
+  critical    = require("critical"),
+  zip         = require("gulp-zip");
 
 var config = {
   nodeDir: "./node_modules"
@@ -36,7 +36,7 @@ var browserSyncWatchFiles = ["./*.min.css", "./js/**/*.min.js", "./**/*.php"];
 // see: https://www.browsersync.io/docs/options/
 var browserSyncOptions = {
   watchTask: true,
-  proxy: "http://sp:8888/"
+  proxy: "http://localhost:8888/"
 };
 
 // Zip files up
@@ -46,7 +46,7 @@ gulp.task("zip", function() {
       [
         "*",
         "./css/*",
-        "./fonts/*",
+       " ./fonts/*",
         "./images/**/*",
         "./inc/**/*",
         "./js/**/*",
@@ -59,8 +59,8 @@ gulp.task("zip", function() {
       ],
       { base: "." }
     )
-    .pipe(zip("strappress.zip"))
-    .pipe(gulp.dest("."));
+    .pipe(zip("StanleyWP.zip"))
+    .pipe(gulp.dest("./outputZip/"));
 });
 
 // Jshint outputs any kind of javascript problems you might have
@@ -100,7 +100,6 @@ gulp.task("sass", function() {
     .pipe(plumber())
     .pipe(
       sass({
-        errLogToConsole: true,
         precision: 8,
         noCache: true,
         //imagePath: 'assets/img',
@@ -120,7 +119,7 @@ gulp.task("sass", function() {
 gulp.task("critical", function(cb) {
   critical.generate({
     base: "./",
-    src: "http://sp:8888/",
+    src: "http://localhost:8888/",
     dest: "css/home.min.css",
     ignore: ["@font-face"],
     dimensions: [
